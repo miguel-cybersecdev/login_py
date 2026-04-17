@@ -23,7 +23,7 @@ def admin_panel(root, open_edit):
 
         ctk.CTkLabel(frame, text = f"{userName} ({role})").pack(side = "left", padx=10)
 
-        ctk.CTkButton(frame, text = "Editar", command = lambda uid = user_id: open_edit_user(panel, refresh, uid)).pack(side="left", padx=5)
+        ctk.CTkButton(frame, text = "Editar", command = lambda uid = user_id: open_edit_users(panel, refresh, uid)).pack(side="left", padx=5)
         ctk.CTkButton(frame, text = "Deletar", command = lambda uid = user_id: delete_refresh(uid, refresh)).pack(side="left", padx=5)
 
 def delete_refresh(user_id, refresh):
@@ -72,7 +72,7 @@ def open_create_user(parent, refresh):
     ctk.CTkButton(window, text="Criar", command=create).pack(pady = 10)
 
 
-def open_edit_user(parent, refresh, userId):
+def open_edit_users(parent, refresh, userId):
     window = ctk.CTkToplevel(parent)
     window.title("Atualizar Usuário")
     window.geometry("500x400")

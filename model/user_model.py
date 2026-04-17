@@ -68,4 +68,4 @@ def delete_user(idUser):
     conn.commit()
     conn.close()
 
-get_all_users()
+#get_all_users()

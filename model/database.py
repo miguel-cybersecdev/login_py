@@ -21,7 +21,6 @@ def create_table():
     conn.commit()
     conn.close()
 
-
 def create_admin():
     conn = connect()
     cursor = conn.cursor()
@@ -35,11 +34,25 @@ def create_admin():
         conn.commit()
 
     conn.close()
+"""
+
+def view_users():
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM users")
+    users = cursor.fetchall()
+
+    print(users)
+
+    conn.close()
+
+view_users()
 
 
 
 
-"""  
+  
 def create_admin():
     conn = connect()
     cursor = conn.cursor()

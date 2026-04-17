@@ -10,7 +10,8 @@ def register_user(userName, email, password, role = "user"):
             hashed = hash_password(password)
             create_user(userName, email, hashed, role)
             return True, "Usuário criado com sucesso"
-        except:
+        except Exception as e:
+            print("Erro: ", e)
             return False, "Usuário já existe"
     
 def login_user(userName, password):
@@ -21,8 +22,22 @@ def login_user(userName, password):
     
     return None
 
-def update_user_data(user_id, userName, email, password):
-    update_user(user_id, userName, email, hash_password(password))
+def list_one_user(user_id):
+    user = get_user_id(user_id)
+    return user
+
+def update_user_data(user_id, userName, email, role):
+    try:
+        rows = update_user_admin(user_id, userName, email, role)
+
+        if rows == 0:
+            return False, "Nenhuma alteração feita"
+        
+        return True, "Usuário atualizado"
+    
+    except Exception as e:
+        print("Erro: ", e)
+        return False, f"Erro: {e}"
 
 def delete_user_data(user_id):
     delete_user(user_id)

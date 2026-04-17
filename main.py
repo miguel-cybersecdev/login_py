@@ -23,7 +23,7 @@ def open_admin():
 
 def open_edit(user_id):
     def save(userName, password, email):
-        update_user_data(user_id, userName, email, password)
+        update_user_data(user_id, userName, email)
 
 
 login_screen(root, open_dashboard)

@@ -5,13 +5,22 @@ def create_user(userName, email, password, role):
     cursor = conn.cursor()
 
     cursor.execute(
-        "INSERT INTO users (userName, email, password, role) VALUES (?, ?, ?, ?)",
+        "INSERT INTO users (userName, emailUser, passwordUser, role) VALUES (?, ?, ?, ?)",
         (userName, email, password, role)
     )
 
     conn.commit()
     conn.close()
 
+def get_user_id(idUser):
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM users WHERE idUser = ?", (idUser,))
+    user = cursor.fetchone()
+
+    conn.close()
+    return user
 
 def get_user(userName):
     conn = connect()
@@ -30,17 +39,26 @@ def get_all_users():
     cursor.execute("SELECT * FROM users")
     users = cursor.fetchall()
 
+    print(users)
+
     conn.close()
     return users
 
-def update_user(idUser, userName, email, password):
-    conn = connect()
-    cursor = conn.cursor()
+def update_user_admin(idUser, userName, email, role):
+    import sqlite3
 
-    cursor.execute(
-        "UPDATE users SET userName = ?, password = ?, email = ? WHERE idUser = ?",
-        (userName, email, password, idUser)
-    )
+    with sqlite3.connect("users.db") as conn:
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "UPDATE users SET userName = ?, role = ?, emailUser = ? WHERE idUser = ?",
+            (userName, role, email, idUser)
+        )
+
+        conn.commit()
+
+        return cursor.rowcount
+    
 
 def delete_user(idUser):
     conn = connect()
@@ -49,3 +67,5 @@ def delete_user(idUser):
     cursor.execute("DELETE FROM users WHERE idUser = ?", (idUser,))
     conn.commit()
     conn.close()
+
+get_all_users()
